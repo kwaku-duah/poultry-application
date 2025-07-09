@@ -1,6 +1,7 @@
 package com.poultry.authservice.security.jwt;
 
 import com.poultry.authservice.dto.UserTokenDto;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.time.Instant;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,15 +37,23 @@ public class JwtServiceImpl implements JwtService {
                 .map(Enum::name)
                 .collect(Collectors.toList()));
 
-
-
-
-        return "";
+        return Jwts.builder()
+                .subject(String.valueOf(userTokenDto.id()))
+                .claims(claims)
+                .issuedAt(new Date())
+                .expiration(Date.from(Instant.now().plus(accessExpiration)))
+                .signWith(getSigningKey())
+                .compact();
     }
 
     @Override
     public String generateRefreshToken(UserTokenDto userTokenDto) {
-        return "";
+        return Jwts.builder()
+                .subject(String.valueOf(userTokenDto.id()))
+                .issuedAt(new Date())
+                .expiration(Date.from(Instant.now().plus(refreshExpiration)))
+                .signWith(getSigningKey())
+                .compact();
     }
 
     @Override
