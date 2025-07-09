@@ -2,16 +2,18 @@ package com.poultry.authservice.controller;
 
 import com.poultry.authservice.dto.AuthRequestDto;
 import com.poultry.authservice.dto.AuthResponseDto;
+import com.poultry.authservice.dto.AuthUserDto;
 import com.poultry.authservice.security.jwt.JwtService;
 import com.poultry.authservice.service.AuthService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("api/auth/v1")
 public class AuthController {
 
     public final AuthService authService;
@@ -20,7 +22,10 @@ public class AuthController {
         this.authService = authService;
     }
 
-    public Mono<ResponseEntity<AuthResponseDto>> login(@RequestBody AuthRequestDto authRequestDto) {
+    @PostMapping()
+    public Mono<ResponseEntity<AuthUserDto>> login(@RequestBody AuthRequestDto authRequestDto) {
         return authService.login(authRequestDto)
+                .map(ResponseEntity::ok);
     }
+
 }
