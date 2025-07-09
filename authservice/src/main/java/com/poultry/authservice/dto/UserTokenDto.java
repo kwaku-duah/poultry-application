@@ -1,4 +1,8 @@
 package com.poultry.authservice.dto;
 
-public record UserTokenDto(Long id, String email, String roles) {
+import com.poultry.authservice.security.enums.Role;
+
+import java.util.Set;
+
+public record UserTokenDto(Long id, String email, Set<Role> roles) {
 }
