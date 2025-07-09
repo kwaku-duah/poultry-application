@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class UserServiceClient {
     private final WebClient webClient;
 
-
+    private String userServiceBaseUrl;
 
     public UserServiceClient(WebClient webClient) {
         this.webClient = webClient;
