@@ -1,4 +1,4 @@
-package com.poultry.userservice;
+package com.poultry.userservice.dto;
 
 import com.poultry.userservice.entity.Role;
 
