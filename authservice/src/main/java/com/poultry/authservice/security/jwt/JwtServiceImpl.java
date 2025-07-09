@@ -1,6 +1,8 @@
 package com.poultry.authservice.security.jwt;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.poultry.authservice.dto.UserTokenDto;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,17 +59,30 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<String> extractRoles(String token) {
-        return List.of();
+        Claims claims = getClaimsFromToken(token);
+        return claims.get("roles", List.class);
+    }
+
+    /*Get claims
+    * */
+    private Claims getClaimsFromToken(String token) {
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     @Override
-    public String extractEmail(String token) {
-        return "";
+    public String extractUserId(String token) {
+        return getClaimsFromToken(token).getSubject();
     }
 
     @Override
     public boolean validateToken(String token) {
-        return false;
+        Claims claims = getClaimsFromToken(token); //catch JwtException
+        return claims.getExpiration().after(new Date());
     }
 }
