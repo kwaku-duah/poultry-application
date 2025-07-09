@@ -3,6 +3,7 @@ package com.poultry.authservice.service;
 
 import com.poultry.authservice.client.UserServiceClient;
 import com.poultry.authservice.dto.AuthRequestDto;
+import org.bouncycastle.crypto.generators.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -18,5 +19,6 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public Mono<String> login(AuthRequestDto authRequest) {
         return null;
+
     }
 }
