@@ -15,4 +15,10 @@ public class GlobalExceptionHandler {
         ErrorHandlerResponse response = new ErrorHandlerResponse("Something went wrong, please contact support", HttpStatus.INTERNAL_SERVER_ERROR.value());
         return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response));
     }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public Mono<ResponseEntity<ErrorHandlerResponse>> handleResourceNotFound(ResourceNotFoundException ex) {
+        ErrorHandlerResponse response = new ErrorHandlerResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value());
+        return Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).body(response));
+    }
 }

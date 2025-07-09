@@ -3,6 +3,7 @@ package com.poultry.userservice.service;
 import com.poultry.userservice.dto.UserLoginRequestDto;
 import com.poultry.userservice.dto.UserRequestDto;
 import com.poultry.userservice.dto.UserResponseDto;
+import com.poultry.userservice.entity.User;
 import com.poultry.userservice.mapper.UserMapper;
 import com.poultry.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserResponseDto createUser(UserRequestDto userRequestDto) {
-        return null;
+        User user = userRepository.findByEmail(userRequestDto.email())
+                .orElseThrow(() -> new )
     }
 
     @Override
