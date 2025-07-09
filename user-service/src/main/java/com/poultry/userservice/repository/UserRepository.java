@@ -1,4 +1,4 @@
-package com.poultry.userservice.entity.repository;
+package com.poultry.userservice.repository;
 
 import com.poultry.userservice.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
