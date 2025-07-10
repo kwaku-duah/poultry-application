@@ -1,9 +1,7 @@
 package com.poultry.authservice.controller;
 
 import com.poultry.authservice.dto.AuthRequestDto;
-import com.poultry.authservice.dto.AuthResponseDto;
 import com.poultry.authservice.dto.AuthUserDto;
-import com.poultry.authservice.security.jwt.JwtService;
 import com.poultry.authservice.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
